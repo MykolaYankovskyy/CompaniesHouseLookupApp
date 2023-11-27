@@ -75,7 +75,9 @@ try
         }
     }
 
-    using var writer = new StreamWriter($"./{fileName.Replace(".csv", $"-output-{DateTime.UtcNow.ToString("yyyy-MM-dd-HH-mm-ss")}.csv")}")
+    string outputFileName = fileName.Replace(".csv", $"-output-{DateTime.UtcNow.ToString("yyyy-MM-dd-HH-mm-ss")}.csv");
+
+    using var writer = new StreamWriter($"./{outputFileName}")
     {
         AutoFlush = true,
     };
@@ -85,7 +87,7 @@ try
     }
 
     Console.WriteLine("Finished processing file: " + fileName);
-    Console.WriteLine("Output file: " + fileName.Replace(".csv", $"-output-{DateTime.UtcNow.ToString("yyyy-MM-dd-HH-mm-ss")}.csv"));
+    Console.WriteLine("Output file: " + outputFileName);
     Console.WriteLine("Press any key to exit");
     Console.ReadKey();
 }
