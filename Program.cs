@@ -10,9 +10,12 @@ Console.WriteLine("Company Name");
 Console.WriteLine("Company 1");
 Console.WriteLine("Company 2");
 
-Console.WriteLine("Please enter the CSV file name:");
 try
 {
+    Console.WriteLine("Please enter your Companies House API key:");
+    var apiKey = Console.ReadLine();
+    if (apiKey is null) throw new ArgumentNullException(nameof(apiKey));
+    Console.WriteLine("Please enter the CSV file name:");
     var fileName = Console.ReadLine();
     if (fileName is null) throw new ArgumentNullException(nameof(fileName));
 
@@ -63,7 +66,7 @@ try
                 continue;
             }
 
-            var companyDetails = await companiesHouseLookupService.GetCompanyDetails(record.CompanyName);
+            var companyDetails = await companiesHouseLookupService.GetCompanyDetails(record.CompanyName, apiKey);
 
             if (companyDetails.Any())
             {

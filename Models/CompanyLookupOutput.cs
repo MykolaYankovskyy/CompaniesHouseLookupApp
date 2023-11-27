@@ -12,5 +12,41 @@ namespace CompaniesHouseLookup.Models
 
         [Name("Company Number")]
         public string? CompanyNumber { get; set; }
+
+        [Name("Company Type")]
+        public string? CompanyType { get; set; }
+
+        [Name("Company Status")]
+        public string? CompanyStatus { get; set; }
+
+        [Name("Date of Creation")]
+        public string? DateOfCreation { get; set; }
+
+        [Name("Date of Cessation")]
+        public string? DateOfCessation { get; set; }
+
+        [Name("Address Line 1")]
+        public string? AddressLine1 { get; set; }
+
+        [Name("Address Line 2")]
+        public string? AddressLine2 { get; set; }
+
+        [Name("Care Of")]
+        public string? CareOf { get; set; }
+
+        [Name("Country")]
+        public string? Country { get; set; }
+
+        [Name("Locality")]
+        public string? Locality { get; set; }
+
+        [Name("PO Box")]
+        public string? PoBox { get; set; }
+
+        [Name("Postal Code")]
+        public string? PostalCode { get; set; }
+
+        [Name("Region")]
+        public string? Region { get; set; }
     }
 }
