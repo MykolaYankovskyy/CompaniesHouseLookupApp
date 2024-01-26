@@ -48,5 +48,22 @@ namespace CompaniesHouseLookup.Models
 
         [Name("Region")]
         public string? Region { get; set; }
+
+        [Ignore]
+        public List<string>? SICCodes { get; set; }
+
+        [Name("SIC Codes")]
+        public string? SICCodesString
+        {
+            get
+            {
+                if (SICCodes is null)
+                {
+                    return null;
+                }
+
+                return string.Join(", ", SICCodes);
+            }
+        }
     }
 }

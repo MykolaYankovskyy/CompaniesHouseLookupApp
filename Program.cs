@@ -2,6 +2,7 @@
 using CompaniesHouseLookup.Models;
 using CompaniesHouseLookup.Services;
 using CsvHelper;
+using Newtonsoft.Json;
 
 Console.WriteLine("Welcome to the Companies House Lookup App");
 Console.WriteLine("Please upload a CSV file containing a list of company names to lookup.");
@@ -66,16 +67,16 @@ try
                 continue;
             }
 
-            var companyDetails = await companiesHouseLookupService.GetCompanyDetails(record.CompanyName, apiKey);
+            var companyDetails = await CompaniesHouseLookupService.GetCompanyDetails(record.CompanyName, apiKey);
 
-            if (companyDetails.Any())
+            if (companyDetails.Count != 0)
             {
                 companyLookupOutputs.AddRange(companyDetails);
             }
         }
     }
 
-    string outputFileName = fileName.Replace(".csv", $"-output-{DateTime.UtcNow.ToString("yyyy-MM-dd-HH-mm-ss")}.csv");
+    string outputFileName = fileName.Replace(".csv", $"-output-{DateTime.UtcNow:yyyy-MM-dd-HH-mm-ss}.csv");
 
     using var writer = new StreamWriter($"./{outputFileName}")
     {
