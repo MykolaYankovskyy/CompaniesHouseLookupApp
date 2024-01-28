@@ -50,10 +50,14 @@ namespace CompaniesHouseLookup.Services
         public static async Task<CompanySearchResult> SearchCompanies(string input, string apiKey)
         {
             var httpClient = new HttpClient();
-            var url = $"https://api.company-information.service.gov.uk/search/companies?q={input}&items_per_page=3";
+            var url = $"https://api.company-information.service.gov.uk/search/companies?q={input}&items_per_page=1";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes($"{apiKey}:")));
             var response = await httpClient.SendAsync(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+            {
+                throw new Exception("Too many requests in 5 minutes, please try again later.");
+            }
             var responseContent = await response.Content.ReadAsStringAsync();
             var result = new CompanySearchResult();
             if (responseContent is not null)
@@ -73,6 +77,10 @@ namespace CompaniesHouseLookup.Services
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes($"{apiKey}:")));
             var response = await httpClient.SendAsync(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+            {
+                throw new Exception("Too many requests in 5 minutes, please try again later.");
+            }
             var responseContent = await response.Content.ReadAsStringAsync();
 
             var result = JsonConvert.DeserializeObject<CompanyProfile>(responseContent);

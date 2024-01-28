@@ -62,7 +62,17 @@ namespace CompaniesHouseLookup.Models
                     return null;
                 }
 
-                return string.Join(", ", SICCodes);
+                var SICString = string.Empty;
+
+                foreach (var SICCode in SICCodes)
+                {
+                    if (Constants.Constants.SICDescriptions.TryGetValue(SICCode, out string? value))
+                    {
+                        SICString += $"{SICCode} - {value}, ";
+                    }
+                }
+
+                return SICString.TrimEnd(',', ' ');
             }
         }
     }
